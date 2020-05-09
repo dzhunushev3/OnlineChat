@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>aspnet-OnlineChat-21B9D334-001F-4C75-973F-9BBFDBF8C067</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200325073139_AddTableGroupsAndMessages.cs" />
+    <Compile Remove="Data\Migrations\20200325073139_AddTableGroupsAndMessages.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200325073533_AddTableGroupsAndMessagesAndUserGroups.cs" />
+    <Compile Remove="Data\Migrations\20200325073533_AddTableGroupsAndMessagesAndUserGroups.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200325084136_ChangeMessage.cs" />
+    <Compile Remove="Data\Migrations\20200325084136_ChangeMessage.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200401071848_test.cs" />
+    <Compile Remove="Data\Migrations\20200401071848_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200401071946_AddPublicGroup.cs" />
+    <Compile Remove="Data\Migrations\20200401071946_AddPublicGroup.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200401075405_AddTableChat.cs" />
+    <Compile Remove="Data\Migrations\20200401075405_AddTableChat.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200401082201_ChangeMessages.cs" />
+    <Compile Remove="Data\Migrations\20200401082201_ChangeMessages.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200401085305_test.cs" />
+    <Compile Remove="Data\Migrations\20200401085305_test.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200401085655_test1.cs" />
+    <Compile Remove="Data\Migrations\20200401085655_test1.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200424075056_AddToMessageDateTime.cs" />
+    <Compile Remove="Data\Migrations\20200424075056_AddToMessageDateTime.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200424075315_Init.cs" />
+    <Compile Remove="Data\Migrations\20200424075315_Init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200424075633_Init.cs" />
+    <Compile Remove="Data\Migrations\20200424075633_Init.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200428102620_test.cs" />
+    <Compile Remove="Data\Migrations\20200428102620_test.Designer.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+  </ItemGroup>
+
+</Project>

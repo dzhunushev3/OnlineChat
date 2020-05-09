@@ -1,0 +1,159 @@
+﻿<div class="container">
+    <div class="row no-gutters">
+        <div class="col-md-3 border border-dark ">
+            <div class="w-100" style="position: relative; float: left;">
+                <h3 class="text-center ">Group</h3>
+                <ul id="group" ></ul>
+                <button type="button" class="btn btn-primary ml-3" data-toggle="modal" data-target="#createGroup">Создать группу</button>
+            </div>
+        </div>
+        <div class="col-md-6 border border-dark" id="messageContainer">
+            <div class="px-4 py-5 chat-box bg-white">
+                <ul id="chatMessage" class="list-unstyled chat"></ul>
+            </div>
+            <div class="type_msg">
+                <div class="input_msg_write">
+                    <input type="text" id="txtmessage" class="write_msg" placeholder="Type a message" />
+                    <button class="msg_send_btn" type="button" onclick="SendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 border border-danger">
+            <div style="position: relative; float: left;">
+                <h3 class="text-center">Online Users</h3>
+                <ul id="onlineUsers"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="createGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="col-form-label">Имя группы:</label>
+                                <input type="text" class="form-control" id="nameGroup">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Статус</label>
+                                <select id="statusGroup">
+                                    <option value="true">Открытый</option>
+                                    <option value="false">Закрытый</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="CreateGroup()">Создать</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<script >
+    function SendMessage() {
+        var message = $('#txtmessage').val();
+        var idGroup = $('#idGroup').val();
+        $.ajax({
+            url: '@Url.Action("SendMessage", "Home")',
+            type: 'POST',
+            data: { 'message': message,'idGroup':idGroup },
+            success: function (data) {
+            }
+        });
+        event.preventDefault();
+    }
+</script>
+<script >
+    function CreateGroup(){
+        var nameGroup = $('#nameGroup').val();
+        var status = $('#statusGroup').val();
+        $.ajax({
+            url: '@Url.Action("CreateGroup")',
+            type: 'POST',
+            data: { 'nameGroup': nameGroup, 'status': status },
+            success: function(data) {
+            }
+        });
+    }
+</script>
+<script>
+    function GetGroups() {
+        $.ajax({
+            url: '@Url.Action("GetGroups")',
+            type: 'POST',
+            success: function (data) {
+                $('#group').empty();
+                data.forEach(AppendGroup);
+            }
+        });
+    }
+</script>
+<script >
+    window.onload= function() {
+        GetGroups();
+    }
+</script>
+<script>
+    function selectGroup(Id) {
+        $('#messageContainer').load('@Url.Action("SelectGroup", "Home")?id=' + Id);
+    }
+</script>
+<script>
+    function AppendGroup(data) {
+        var nameGroup = data.name;
+        var userCount = data.userList.length;
+        var groupId = data.id;
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.innerHTML = nameGroup;
+        a.onclick = function() {
+            selectGroup(groupId);
+        }
+        li.appendChild(a);
+        document.getElementById("group").appendChild(li);
+
+    }
+</script>
+@*<script >
+    function AppendMessage(data) {
+        var dt = data.dateTime;
+        var date = dt.split("T");
+        var time = date[1].split(".");
+        var dt2 ="  "+ date[0] + " " + time[0];
+        var msg = data.messag.replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+        var li = document.createElement("li");
+        li.className = "d-flex justify-content-between mb-4";
+        var div1 = document.createElement("div");
+        div1.className = "chat-body white p-3 ml-2 z-depth-1";
+        var div1Child = document.createElement("div");
+        div1Child.className = "header";
+        var userNameStrong = document.createElement("strong");
+        userNameStrong.className = "primary-font";
+        userNameStrong.innerHTML = data.user.userName;
+        var smallTime = document.createElement("small");
+        smallTime.className = " text-muted";
+        smallTime.innerHTML = dt2;
+        var timeIcon = document.createElement("i");
+        timeIcon.className = "far fa-clock";
+        var hr = document.createElement("hr");
+        hr.className = "w-100";
+        var pMessage = document.createElement("p");
+        pMessage.className = " mb-0";
+        pMessage.innerHTML = msg;
+        li.appendChild(div1);
+        div1.appendChild(div1Child);
+        div1.appendChild(hr);
+        div1.appendChild(pMessage);
+        div1Child.appendChild(userNameStrong);
+        div1Child.appendChild(smallTime);
+        smallTime.appendChild(timeIcon);
+        document.getElementById("chatMessage").appendChild(li);
+    }
+</script>*@
+<script src="~/lib/@@microsoft/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>
