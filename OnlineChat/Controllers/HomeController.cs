@@ -85,5 +85,27 @@ namespace OnlineChat.Controllers
             var chatGroupViewModel = await _messageService.GetGroupMessage(id,user);
             return PartialView("_ChatPartialView", chatGroupViewModel);
         }
+
+        public async Task<JsonResult> SearchMessages(string searchParam,int idGroup)
+        {
+            try
+            {
+                List<Message> messages;
+                if (searchParam != null)
+                {
+                    messages = await _messageService.SearchMessages(searchParam, idGroup);
+                }
+                else
+                {
+                    messages = null;
+                }
+                return Json(messages);
+            }
+            catch (Exception e)
+            {
+                return Json(new {Exception = e.Message});
+            }
+            
+        }
     }
 }

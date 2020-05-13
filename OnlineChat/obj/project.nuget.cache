@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "927s3RF0PA4I9DpYFxKoZBTxHMQeKpuaqkHraxzS3bxW4kmTlGMbFkq2gq1tSRhKk6SFTogdd8JIathqVwo6dA==",
+  "dgSpecHash": "4hlVbw4WR09JqkJ97I6o2689lL0wdAa5Akw66fXWeaCGl9ahBbHBC3Fvb0+2GeKOvqZ5sz2w9immZBIHg4IPIw==",
   "success": true,
-  "projectFilePath": "D:\\OnlineChat\\OnlineChat\\OnlineChat.csproj",
+  "projectFilePath": "C:\\OnlineChat\\OnlineChat\\OnlineChat.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dzhun\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\dzhun\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",

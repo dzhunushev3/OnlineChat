@@ -22,9 +22,11 @@ namespace OnlineChat.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Message>> GetGroupMessagesById(int id)
+        public async Task<List<Message>> GetGroupMessagesByIdAsync(int id)
         {
             return await DbSet.Include(m=> m.User).Where(m => m.GroupId == id).ToListAsync();
         }
+
+
     }
 }

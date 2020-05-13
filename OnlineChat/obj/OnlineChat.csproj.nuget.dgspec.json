@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\git\\OnlineChat\\OnlineChat\\OnlineChat.csproj": {}
+    "C:\\OnlineChat\\OnlineChat\\OnlineChat.csproj": {}
   },
   "projects": {
-    "D:\\git\\OnlineChat\\OnlineChat\\OnlineChat.csproj": {
+    "C:\\OnlineChat\\OnlineChat\\OnlineChat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\git\\OnlineChat\\OnlineChat\\OnlineChat.csproj",
+        "projectUniqueName": "C:\\OnlineChat\\OnlineChat\\OnlineChat.csproj",
         "projectName": "OnlineChat",
-        "projectPath": "D:\\git\\OnlineChat\\OnlineChat\\OnlineChat.csproj",
+        "projectPath": "C:\\OnlineChat\\OnlineChat\\OnlineChat.csproj",
         "packagesPath": "C:\\Users\\dzhun\\.nuget\\packages\\",
-        "outputPath": "D:\\git\\OnlineChat\\OnlineChat\\obj\\",
+        "outputPath": "C:\\OnlineChat\\OnlineChat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dzhun\\AppData\\Roaming\\NuGet\\NuGet.Config",

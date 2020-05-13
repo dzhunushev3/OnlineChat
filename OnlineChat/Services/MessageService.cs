@@ -78,7 +78,7 @@ namespace OnlineChat.Services
 
         public async Task<ChatGroupViewModel> GetGroupMessage(int id,User user)
         {
-            var messages = await _unitOfWork.MessageRepository.GetGroupMessagesById(id);
+            var messages = await _unitOfWork.MessageRepository.GetGroupMessagesByIdAsync(id);
             var group = await _unitOfWork.GroupRepository.GetByIdAsync(id);
             bool isJoin = group.UserList.Contains(user);
             ChatGroupViewModel chatGroupViewModel = new ChatGroupViewModel()
@@ -88,6 +88,25 @@ namespace OnlineChat.Services
                 IsJoin = isJoin
             };
             return chatGroupViewModel;
+        }
+
+        public async Task<List<Message>> SearchMessages(string searchParam, int idGroup)
+        {
+            var messages = await _unitOfWork.MessageRepository.GetGroupMessagesByIdAsync(idGroup);
+            if (searchParam.IndexOf("@") == 0)
+            {
+                messages = messages.Where(x => (x.Messag?.ToUpper() ?? String.Empty).Contains(searchParam.ToUpper())
+                    || (x.User.UserName?.ToUpper()??String.Empty).Contains(searchParam.ToUpper()))
+                    .ToList();
+            }
+            else
+            {
+                messages = messages.Where(x => (x.Messag?.ToUpper() ?? String.Empty).Contains(searchParam.ToUpper()))
+                    .ToList();
+            }
+
+            return messages;
+
         }
     }
 }

@@ -1,28 +1,118 @@
 ﻿@model OnlineChat.ViewModels.ChatGroupViewModel
 <div class="chat-box bg-white ">
-    <div class="sticky-top  row m-auto pl-4 pt-2 border-bottom badge-light">
-        <h5>@Model.Group.Name</h5>
+    <div class="sticky-top row m-auto pl-4 pt-2 border-bottom badge-light">
+        <h5 class="col-5" >@Model.Group.Name</h5>
+        <input class="form-control col-5 mb-2" type="text" placeholder="Search" aria-label="Search" id="searchValue" oninput="Search()">
     </div>
     <ul id="@Model.Group.Id" class="list-unstyled chat">
         @foreach (var message in Model.Messages)
         {
-            <li class="d-flex justify-content-between mb-4">
+            <li class="d-flex justify-content-between mb-4" id="@message.Id">
                 <div class="chat-body white p-3 ml-2 z-depth-1">
                     <div class="header">
                         <strong class="primary-font">@message.User.UserName</strong>
                         <small class="text-muted">@message.DateTime</small>
                     </div>
                     <hr class="w-100"/>
-                    <p class="mb-0">@message.Messag</p>
+                    <p class="mb-0"><a name="@message.Id"></a>@message.Messag</p>
                 </div>
             </li>
         }
     </ul>
 </div>
+<div class=" row m-auto pl-4 pt-2 border-bottom badge-light" id="searchResultDiv">
+        
+    </div>
 <div class="type_msg">
+    
     <div class="input_msg_write">
         <input type="text" id="txtmessage" class="write_msg" placeholder="Type a message" />
-        <input type="hidden" id="idGroup" value="@Model.Group.Id"/>
-        <button class="msg_send_btn" type="button"onclick="SendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+        <input type="hidden" id="idGroup" value="@Model.Group.Id" />
+        <button class="msg_send_btn " type="button" onclick="SendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
     </div>
 </div>
+<script>
+    function Search() { //Функция для поиска сообщений в реальном времени 
+        var searchParam = $('#searchValue').val();
+        var idGroup = $('#idGroup').val();
+        if (searchParam === null) {
+            alert("searchParam");
+        }
+        $.ajax({
+            url: '@Url.Action("SearchMessages", "Home")',
+            type: 'POST',
+            data: { 'searchParam': searchParam,'idGroup':idGroup },
+            success: function (data) {
+                var group = document.getElementById('group');
+                group.innerHTML = '';
+                ShowSearchResult(data);
+            }
+        });
+
+    }
+</script>
+<script>
+    function ShowSearchResult(data) {
+        if (data != null) {
+            if (data.length === 0) {
+                AppendSearchResult("Сообщения не найдено");
+
+            } else {
+                AppendSearchResult("Найдено " + data.length + " сообшений");
+                data.forEach(ShowSearchResultList);
+
+
+            }
+        } else {
+            var searchResultDiv = document.getElementById('groupMenu');
+            searchResultDiv.innerHTML = 'Group';
+            GetGroups();
+        }
+        
+    }
+</script>
+<script>
+    function AppendSearchResult(param) {
+        var searchResultDiv = document.getElementById('groupMenu');
+        searchResultDiv.innerHTML = '';
+        var p = document.createElement('p');
+        p.innerHTML = param;
+        searchResultDiv.appendChild(p);
+    }
+</script>
+<script>
+    function ShowSearchResultList(data) {
+        console.log(data);
+        var group = document.getElementById('group');
+        //group.innerHTML = '';
+        var userName = data.user.userName;
+        var dt = data.dateTime;
+        var date = dt.split("T");
+        var time = date[1].split(".");
+        var dt2 = "  " + date[0] + " " + time[0];
+        var message = data.messag;
+        var li = document.createElement('li');
+        li.className = "list-group";
+        var a = document.createElement('a');
+        a.href = '#' + data.id;
+        a.className = 'list-group-item list-group-item-action flex-column align-items-start';
+        var div = document.createElement('div');
+        div.className = 'd-flex w-100 justify-content-between';
+        var h5 = document.createElement('p');
+        h5.innerHTML = userName;
+        h5.className = "mb-1";
+        var small = document.createElement('small');
+        small.innerHTML = dt2;
+        div.appendChild(h5);
+        div.appendChild(small);
+        var p = document.createElement('p');
+        p.innerHTML = message.substr(0, 30);
+        p.className = "mb-1";
+        
+        a.appendChild(div);
+        a.appendChild(p);
+        li.appendChild(a);
+        group.appendChild(li);
+        
+    }
+</script>
